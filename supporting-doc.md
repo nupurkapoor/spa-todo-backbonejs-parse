@@ -20,6 +20,7 @@
 ### Backbone.View
 
 * Views typically constitute the user interface in an application (e.g., markup and templates), but don’t have to be. Users interact with Views, which usually means reading and editing Model data.
+* Views in Backbone don’t contain the HTML markup for the application; they contain the logic behind the presentation of the model’s data to the user. This is usually achieved using JavaScript templating.
 * Officialy Backbone.js documentation endorses jQuery. Backbone.View events may not work with libraries other than jQuery. 
 * The _initialize function_ is always called when instantiating a Backbone View. Consider it the constructor of the class.
 * All views have a DOM element at all times (the el property), whether they've already been inserted into the page or not. In this fashion, views can be rendered at any time, and inserted into the DOM all at once, in order to get high-performance UI rendering with as few reflows and repaints as possible. 
@@ -29,7 +30,8 @@
 * We define a render() utility within our View which is responsible for rendering the contents of the Model and updating the contents of our View, referenced by this.$el. The _render()_ function will load our template into the view's "el" property using jQuery. We then add our render() callback as a Model subscriber, so the View can be triggered to update when the Model changes.
 * When users click on an element within the View, it’s not the View’s responsibility to know what to do next. A Controller makes this decision. In Backbone, this is achieved by adding an event listener to the Todo’s element which delegates handling of the click to an event handler.
  * So does Backbone.js have Controllers? Not really. Backbone’s Views typically contain “Controller” logic, and Routers are used to help manage application state, but neither are true Controllers according to classical MVC definition.
-* In this respect, its better to see Backbone.js a member of the MV* family
+ * Event-driven communication between Views and Models.
+ * In this respect, its better to see Backbone.js a member of the MV* family
 
 
 
@@ -38,6 +40,12 @@
 * First and foremost a Model is a data container.
 * In the context of Backbone.js, the Model is a place where we keep our data. 
 * Models represent the domain-specific knowledge and data in an application. Think of this as being a ‘type’ of data you can model like a User, Photo, or Todo note. Models can notify observers when their state changes.
+* The **initialize()** method is called when a new instance of a model is created.
+ * If we want to be notified when a Backbone model changes, we can bind a listener to the model for its change event. A convenient place to add listeners is in the **initialize()** function.
+ * Or can listen for changes to individual attributes in a Backbone model.
+* **Default Vlaues** There are times when you want your model to have a set of default values (e.g., in a scenario where a complete set of data isn’t provided by the user). This can be set using a property called defaults in your model.
+* **Model.get()**  provides easy access to a model’s attributes.
+* **Model.set()** sets a hash containing one or more attributes on the model. When any of these attributes alter the state of the model, a “change” event is triggered on it.
 * Some modern MVC/MV* frameworks to provide a means of grouping Models together. In Backbone, these groups are called Collections.
 
 ### Application Specific Notes
