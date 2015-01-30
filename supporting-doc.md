@@ -13,24 +13,27 @@
 > *One important characteristic of a framework is that the methods defined by the user to tailor the framework will often be called from within the framework itself, rather than from the user's application code. The framework often plays the role of the main program in coordinating and sequencing application activity. This inversion of control gives frameworks the power to serve as extensible skeletons. The methods supplied by the user tailor the generic algorithms defined in the framework for a particular application. -- Ralph Johnson and Brian Foote*
 * MVC Applied to Web
  * The web heavily relies on the HTTP protocol, which is stateless. Which means that there is never a constantly open connection between the browser and server; each request instantiates a new communication channel between the two. Once the request initiator (browser) gets a response the connection is closed.
- * 
+ * A SPA is loaded into the browser using a normal HTTP request and response. Once loaded, a client-side Router intercepts URLs and invokes client-side logic in place of sending a new request to the server. 
+ ![alt tag](http://addyosmani.github.io/backbone-fundamentals/img/backbone_mvc.png)
+ * URL routing, DOM events (e.g., mouse clicks), and Model events (e.g., attribute changes) all trigger handling logic in the View. The handlers update the DOM and Models, which may trigger additional events. Models are synced with Data Sources which may involve communicating with back-end servers.
 
 ### Backbone.View
 
-* Views typically constitute the user interface in an application (e.g., markup and templates), but don’t have to be.
+* Views typically constitute the user interface in an application (e.g., markup and templates), but don’t have to be. Users interact with Views, which usually means reading and editing Model data.
 * Officialy Backbone.js documentation endorses jQuery. Backbone.View events may not work with libraries other than jQuery. 
 * The _initialize function_ is always called when instantiating a Backbone View. Consider it the constructor of the class.
 * All views have a DOM element at all times (the el property), whether they've already been inserted into the page or not. In this fashion, views can be rendered at any time, and inserted into the DOM all at once, in order to get high-performance UI rendering with as few reflows and repaints as possible. 
 * this.el is created from the view's tagName, className, id and attributes properties, if specified. If not, el is an empty div.
 * A views el is where all the event binding takes place.
 * $el is a cached jQuery object for the view's element. $el keeps a reference to the element so you don't need to traverse the DOM to find the element every time you use it. with the performance benefits that this implies.
-* The _render()_ function will load our template into the view's "el" property using jQuery.
+* We define a render() utility within our View which is responsible for rendering the contents of the Model and updating the contents of our View, referenced by this.$el. The _render()_ function will load our template into the view's "el" property using jQuery. We then add our render() callback as a Model subscriber, so the View can be triggered to update when the Model changes.
 
 ### Backbone.Model
 
 * First and foremost a Model is a data container.
 * In the context of Backbone.js, the Model is a place where we keep our data. 
 * Models represent the domain-specific knowledge and data in an application. Think of this as being a ‘type’ of data you can model like a User, Photo, or Todo note. Models can notify observers when their state changes.
+* Some modern MVC/MV* frameworks to provide a means of grouping Models together. In Backbone, these groups are called Collections.
 
 ### Application Specific Notes
 
