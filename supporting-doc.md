@@ -27,6 +27,11 @@
 * A views el is where all the event binding takes place.
 * $el is a cached jQuery object for the view's element. $el keeps a reference to the element so you don't need to traverse the DOM to find the element every time you use it. with the performance benefits that this implies.
 * We define a render() utility within our View which is responsible for rendering the contents of the Model and updating the contents of our View, referenced by this.$el. The _render()_ function will load our template into the view's "el" property using jQuery. We then add our render() callback as a Model subscriber, so the View can be triggered to update when the Model changes.
+* When users click on an element within the View, it’s not the View’s responsibility to know what to do next. A Controller makes this decision. In Backbone, this is achieved by adding an event listener to the Todo’s element which delegates handling of the click to an event handler.
+ * So does Backbone.js have Controllers? Not really. Backbone’s Views typically contain “Controller” logic, and Routers are used to help manage application state, but neither are true Controllers according to classical MVC definition.
+* In this respect, its better to see Backbone.js a member of the MV* family
+
+
 
 ### Backbone.Model
 
