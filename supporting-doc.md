@@ -11,7 +11,9 @@
 * Backbone.js is commanly used to create single-page applications (SPAs). SPAs are web applications that load into the browser and then react to data changes on the client side without requiring complete page refreshes from the server.
 * It’s a library, rather than a framework, that plays well with others and scales well, from embedded widgets to large-scale applications.
 > *One important characteristic of a framework is that the methods defined by the user to tailor the framework will often be called from within the framework itself, rather than from the user's application code. The framework often plays the role of the main program in coordinating and sequencing application activity. This inversion of control gives frameworks the power to serve as extensible skeletons. The methods supplied by the user tailor the generic algorithms defined in the framework for a particular application. -- Ralph Johnson and Brian Foote*
-*
+* MVC Applied to Web
+ * The web heavily relies on the HTTP protocol, which is stateless. Which means that there is never a constantly open connection between the browser and server; each request instantiates a new communication channel between the two. Once the request initiator (browser) gets a response the connection is closed.
+ * 
 
 ### Backbone.View
 
@@ -26,6 +28,7 @@
 
 ### Backbone.Model
 
+* First and foremost a Model is a data container.
 * In the context of Backbone.js, the Model is a place where we keep our data. 
 * Models represent the domain-specific knowledge and data in an application. Think of this as being a ‘type’ of data you can model like a User, Photo, or Todo note. Models can notify observers when their state changes.
 
