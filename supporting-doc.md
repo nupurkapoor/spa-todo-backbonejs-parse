@@ -26,8 +26,8 @@
 * All views have a DOM element at all times (the el property), whether they've already been inserted into the page or not. In this fashion, views can be rendered at any time, and inserted into the DOM all at once, in order to get high-performance UI rendering with as few reflows and repaints as possible. 
 * this.el is created from the view's tagName, className, id and attributes properties, if specified. If not, el is an empty div.
 * A views el is where all the event binding takes place.
-* $el is a cached jQuery object for the view's element. $el keeps a reference to the element so you don't need to traverse the DOM to find the element every time you use it. with the performance benefits that this implies.
-* We define a render() utility within our View which is responsible for rendering the contents of the Model and updating the contents of our View, referenced by this.$el. The _render()_ function will load our template into the view's "el" property using jQuery. We then add our render() callback as a Model subscriber, so the View can be triggered to update when the Model changes.
+* **$el** is a cached jQuery object for the view's element. **$el** keeps a reference to the element so you don't need to traverse the DOM to find the element every time you use it. with the performance benefits that this implies.
+* We define a render() utility within our View which is responsible for rendering the contents of the Model and updating the contents of our View, referenced by this.**$el**. The _render()_ function will load our template into the view's "el" property using jQuery. We then add our render() callback as a Model subscriber, so the View can be triggered to update when the Model changes.
  * A view’s render() method can be bound to a model’s change() event, enabling the view to instantly reflect model changes without requiring a full page refresh.
 * When users click on an element within the View, it’s not the View’s responsibility to know what to do next. A Controller makes this decision. In Backbone, this is achieved by adding an event listener to the Todo’s element which delegates handling of the click to an event handler.
  * So does Backbone.js have Controllers? Not really. Backbone’s Views typically contain “Controller” logic, and Routers are used to help manage application state, but neither are true Controllers according to classical MVC definition.
@@ -49,13 +49,25 @@
 * **Model.set()** sets a hash containing one or more attributes on the model. When any of these attributes alter the state of the model, a “change” event is triggered on it.
 * Some modern MVC/MV* frameworks to provide a means of grouping Models together. In Backbone, these groups are called Collections.
 
+### Backbone.Collection
+
+* 
+
 ### Million $$$$ Question - **What is el?**
 
 The central property of a view is el. el is basically a reference to a DOM element and all views must have one. Views can use el to compose their element’s content and then insert it into the DOM all at once, which makes for faster rendering because the browser performs the minimum required number of reflows and repaints.
 
 There are two ways to associate a DOM element with a view: a new element can be created for the view and subsequently added to the DOM or a reference can be made to an element which already exists in the page.
 
+The “el” property represents the markup portion of the view that will be rendered; to get the view to actually render to the page, you need to add it as a new element or append it to an existing element.
+
 If you want to create a new element for your view, set any combination of the following properties on the view: *tagName, id, and className*. A new element will be created by the framework and a reference to it will be available at the el property. If nothing is specified tagName defaults to div.
+
+When declaring a View, options, el, tagName, id and className may be defined as functions, if you want their values to be determined at runtime.
+
+View logic often needs to invoke jQuery functions on the el element and elements nested within it. Backbone makes it easy to do so by defining the **$el** property and **$()** function. The view.$el property is equivalent to $(view.el) and view.$(selector) is equivalent to $(view.el).find(selector). Overriding this.el needs to both change the DOM reference and re-bind events to the new element (and unbind from the old).
+**setElement** will create a cached **$el** reference for you, moving the delegated events for a view from the old element to the new one.
+
 
 ### Application Specific Notes
 
