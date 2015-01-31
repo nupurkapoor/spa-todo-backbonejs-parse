@@ -49,6 +49,14 @@
 * **Model.set()** sets a hash containing one or more attributes on the model. When any of these attributes alter the state of the model, a “change” event is triggered on it.
 * Some modern MVC/MV* frameworks to provide a means of grouping Models together. In Backbone, these groups are called Collections.
 
+### Million $$$$ Question - **What is el?**
+
+The central property of a view is el. el is basically a reference to a DOM element and all views must have one. Views can use el to compose their element’s content and then insert it into the DOM all at once, which makes for faster rendering because the browser performs the minimum required number of reflows and repaints.
+
+There are two ways to associate a DOM element with a view: a new element can be created for the view and subsequently added to the DOM or a reference can be made to an element which already exists in the page.
+
+If you want to create a new element for your view, set any combination of the following properties on the view: *tagName, id, and className*. A new element will be created by the framework and a reference to it will be available at the el property. If nothing is specified tagName defaults to div.
+
 ### Application Specific Notes
 
 * Since the model is a place where we keep our data. So, our ToDos will simply be models. 
