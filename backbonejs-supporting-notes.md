@@ -102,7 +102,7 @@ function test() {
 * It assumes a jQuery-like **$.ajax()** method, so HTTP parameters are organized based on jQuery’s API.
 * Enables network access in Backbone.js
 * Override this function to change the manner in which Backbone persists models to the server. The sync function may be overridden globally as Backbone.sync, or at a finer-grained level, by adding a sync function to a Backbone collection or to an individual model.
-* 
+
 
 
 
