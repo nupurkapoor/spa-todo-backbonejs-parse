@@ -34,7 +34,20 @@
  * Event-driven communication between Views and Models.
  * In this respect, its better to see Backbone.js a member of the MV* family
 
+##### Million $$$$ Question - **What is el?**
 
+The central property of a view is el. el is basically a reference to a DOM element and all views must have one. Views can use el to compose their element’s content and then insert it into the DOM all at once, which makes for faster rendering because the browser performs the minimum required number of reflows and repaints.
+
+There are two ways to associate a DOM element with a view: a new element can be created for the view and subsequently added to the DOM or a reference can be made to an element which already exists in the page.
+
+The “el” property represents the markup portion of the view that will be rendered; to get the view to actually render to the page, you need to add it as a new element or append it to an existing element.
+
+If you want to create a new element for your view, set any combination of the following properties on the view: *tagName, id, and className*. A new element will be created by the framework and a reference to it will be available at the el property. If nothing is specified tagName defaults to div.
+
+When declaring a View, options, el, tagName, id and className may be defined as functions, if you want their values to be determined at runtime.
+
+View logic often needs to invoke jQuery functions on the el element and elements nested within it. Backbone makes it easy to do so by defining the **$el** property and **$()** function. The view.$el property is equivalent to $(view.el) and view.$(selector) is equivalent to $(view.el).find(selector). Overriding this.el needs to both change the DOM reference and re-bind events to the new element (and unbind from the old).
+**setElement** will create a cached **$el** reference for you, moving the delegated events for a view from the old element to the new one.
 
 ### Backbone.Model
 
@@ -59,24 +72,38 @@
 * Retrieving Models: There are a few different ways to retrieve a model from a collection. The most straight-forward is to use Collection.get() which accepts a single id.
 * In client-server applications, collections contain models obtained from the server. Anytime you’re exchanging data between the client and a server, you will need a way to uniquely identify models. In Backbone, this is done using the id, cid, and idAttribute properties.
  * Internally, Backbone.Collection contains an array of models enumerated by their id property, if the model instances happen to have one. When collection.get(id) is called, this array is checked for existence of the model instance with the corresponding id.
+* Backbone supports RESTful persistence via its fetch() and create() methods on Collections and save(), and destroy() methods on Models.
 
-### Million $$$$ Question - **What is el?**
+### Backbone.Events
 
-The central property of a view is el. el is basically a reference to a DOM element and all views must have one. Views can use el to compose their element’s content and then insert it into the DOM all at once, which makes for faster rendering because the browser performs the minimum required number of reflows and repaints.
+* Events are a basic inversion of control. The part of your application that has to know how to call the other part of your app has been inverted. Instead of having one function call another by name, the second function is registered as a handler to be called when a specific event occurs.
+* Backbone.Events is mixed into the Backbone object. Since Backbone is globally visible, it can be used as a simple event bus:
+```
+function test() {
+  console.log("notice the blank line before this function?");
+}
+```
+##### Events and Views
+* Within a View, there are two types of events you can listen for: DOM events and events triggered using the Event API.
+* DOM events can be bound to using the View’s events property or using jQuery.on(). Within callbacks bound using the events property, this refers to the View object; whereas any callbacks bound directly using jQuery will have this set to the handling DOM element by jQuery.  
 
-There are two ways to associate a DOM element with a view: a new element can be created for the view and subsequently added to the DOM or a reference can be made to an element which already exists in the page.
+### Backbone.Router
 
-The “el” property represents the markup portion of the view that will be rendered; to get the view to actually render to the page, you need to add it as a new element or append it to an existing element.
+* In Backbone, routers provide a way for you to connect URLs (either hash fragments, or real) to parts of your application. Any piece of your application that you want to be bookmarkable, shareable, and back-button-able, needs a URL.
+* You’re very likely to not require more than one or two routers in your own projects; the majority of your application routing can be kept organized in a single router without it getting unwieldy.
 
-If you want to create a new element for your view, set any combination of the following properties on the view: *tagName, id, and className*. A new element will be created by the framework and a reference to it will be available at the el property. If nothing is specified tagName defaults to div.
+### Backbone.history
 
-When declaring a View, options, el, tagName, id and className may be defined as functions, if you want their values to be determined at runtime.
+* Handles hashchange events in our application. 
+* This will automatically handle routes that have been defined and trigger callbacks when they are accessed.
 
-View logic often needs to invoke jQuery functions on the el element and elements nested within it. Backbone makes it easy to do so by defining the **$el** property and **$()** function. The view.$el property is equivalent to $(view.el) and view.$(selector) is equivalent to $(view.el).find(selector). Overriding this.el needs to both change the DOM reference and re-bind events to the new element (and unbind from the old).
-**setElement** will create a cached **$el** reference for you, moving the delegated events for a view from the old element to the new one.
+### Backbone.sync
+
+* It assumes a jQuery-like **$.ajax()** method, so HTTP parameters are organized based on jQuery’s API.
+* Enables network access in Backbone.js
+* Override this function to change the manner in which Backbone persists models to the server. The sync function may be overridden globally as Backbone.sync, or at a finer-grained level, by adding a sync function to a Backbone collection or to an individual model.
+* 
 
 
-### Application Specific Notes
 
-* Since the model is a place where we keep our data. So, our ToDos will simply be models. 
  
