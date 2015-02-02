@@ -1,7 +1,5 @@
 # Supporting Doc
 
-## Notes to self!
-
 ### General Concepts
 
 * It comes with Models, Collections, Views, Events, Router and a few other great features. (no controller!)

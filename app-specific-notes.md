@@ -1,8 +1,7 @@
 ### Application Specific Notes
 
-##### Architecture - higher level
+##### Requirements
 
-**Requirements**
 * a Todo model to describe individual todo items
  * Since the model is a place where we keep our data. So, our ToDos will simply be models.
 * a TodoList collection to store and persist todos
