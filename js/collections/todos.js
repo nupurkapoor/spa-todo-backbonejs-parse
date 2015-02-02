@@ -1,22 +1,29 @@
+/*
+  A TodoList collection is used to group our models. 
+  The collection uses the LocalStorage adapter to override Backbone’s default sync() operation 
+  with one that will persist our Todo records to HTML5 Local Storage. 
+  Through local storage, they’re saved between page requests.
 
-  // a TodoList collection is used to group our models. 
-  // The collection uses the LocalStorage adapter to override Backbone’s default sync() operation 
-  // with one that will persist our Todo records to HTML5 Local Storage. 
-  // Through local storage, they’re saved between page requests.
+  The collection’s completed() and remaining() methods return an array of finished and 
+  unfinished todos, respectively.
+
+  The nextOrder() method implements a sequence generator while a comparator() sorts items 
+  by their insertion order.
+*/
 
   var app = app || {};
 
   // Todo Collection
   // ---------------
 
-  // The collection of todos is backed by *localStorage* instead of a remote
+  // The collection of todos is backed by localStorage instead of a remote
   // server.
   var TodoList = Backbone.Collection.extend({
 
     // Reference to this collection's model.
     model: app.Todo,
 
-    // Save all of the todo items under the `"todos-backbone"` namespace.
+    // Save all of the todo items under the "todos-backbone" namespace.
     localStorage: new Backbone.LocalStorage('todos-backbone'),
 
     // Filter down the list of all todo items that are finished.
