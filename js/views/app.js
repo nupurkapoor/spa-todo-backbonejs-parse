@@ -10,13 +10,17 @@ var app = app || {};
   // ---------------
 
   // The overall **AppView** is the top-level piece of UI.
-  app.AppView = Backbone.View.extend({
+  app.AppView = Backbone.View.extend({ 
 
     // Instead of generating a new element, bind to the existing skeleton of
     // the App already present in the HTML.
+    //An el (element) property stores a selector targeting the DOM element with an ID of todoapp. 
+    //In this case, el refers to the matching <section id="todoapp" /> element in index.html.
     el: '#todoapp',
 
     // The template for the line of statistics at the bottom of the app.
+    //The call to _.template uses Underscore’s micro-templating to construct a statsTemplate object 
+    //from the #stats-template. We will use this template later when we render our view.
     statsTemplate: _.template( $('#stats-template').html() ),
 
     // At initialization we bind to the relevant events on the `Todos`
