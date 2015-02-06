@@ -21,7 +21,7 @@
   </section>
   <div id="info">
     <p>Double-click to edit a todo</p>
-    <p>Written by <a href="https://github.com/nupurkapoor/spa-todo-backbonejs">Nupur Kapoor</a></p>
+    <p>Implemented by <a href="https://github.com/nupurkapoor/spa-todo-backbonejs">Nupur Kapoor</a></p>
   </div>
 
   <!-- to display individual todo items -->
@@ -36,7 +36,9 @@
 
   <!-- to populate the footer -->
   <script type="text/template" id="stats-template">
-    <span id="todo-count"><strong><%= remaining %></strong> <%= remaining === 1 ? 'item' : 'items' %> left</span>
+    <span id="todo-count">
+      <strong><%= remaining %></strong> <%= remaining === 1 ? 'item' : 'items' %> left
+    </span>
     <ul id="filters">
       <li>
         <a class="selected" href="#/">All</a>
