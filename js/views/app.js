@@ -1,51 +1,77 @@
-/* 
- AppView will handle the creation of new todos and rendering of the initial todo list. 
- Instances of TodoView will be associated with each individual Todo record. 
- Todo instances can handle editing, updating, and destroying their associated todo.
-*/
+// The Application definition, creating namespace
+var app = app | {}
 
-var app = app || {};
+app.AppView = Backbone.View.extend({
+  el: '#todoapp', //instead of creating a new element, bind to the existing element.
 
-  // The Application
-  // ---------------
+  
+  statsTemplate: _.template($('#stats-template').html()),
+  
+  // Delegate events for creating new items, clearing completed ones, and toggle list.
+  events: {
+    'keypress #new-todo' : 'createOnEnter',
+    'click #clear-completed' : 'clearCompleted',
+    'click #toggle-all' : 'toggleAllComplete'
+  },
 
-  // The overall **AppView** is the top-level piece of UI.
-  app.AppView = Backbone.View.extend({ 
+  // At initialization we bind to the relevant events on the `Todos` collection, 
+  // when items are added or changed. Kick things off by loading any
+  // preexisting todos that might be saved in *localStorage*.
+  initialize: function() {
+    this.$input = this.$('#new-todo');
+    this.$footer = this.$('#footer');
+    this.$main = this.$('#main');
+    this.allCheckbox = this.$('#toggle-all')[0];
 
-    // Instead of generating a new element, bind to the existing skeleton of
-    // the App already present in the HTML.
-    //An el (element) property stores a selector targeting the DOM element with an ID of todoapp. 
-    //In this case, el refers to the matching <section id="todoapp" /> element in index.html.
-    el: '#todoapp',
+    this.listenTo(app.Todos, 'add', this.addOne);
+    this.listenTo(app.Todos, 'reset', this.addAll);
 
-    // The template for the line of statistics at the bottom of the app.
-    //The call to _.template uses Underscore’s micro-templating to construct a statsTemplate object 
-    //from the #stats-template. We will use this template later when we render our view.
-    statsTemplate: _.template( $('#stats-template').html() ),
+    this.listenTo(app.Todos, 'change:completed', this.filterOne);
+    this.listenTo(app.Todos,'filter', this.filterAll);
+    this.listenTo(app.Todos, 'all', this.render);
 
-    // At initialization we bind to the relevant events on the `Todos`
-    // collection, when items are added or changed.
-    initialize: function() {
-      this.allCheckbox = this.$('#toggle-all')[0];
-      this.$input = this.$('#new-todo');
-      this.$footer = this.$('#footer');
-      this.$main = this.$('#main');
+    app.Todos.fetch();
+  },
 
-      this.listenTo(app.Todos, 'add', this.addOne);
-      this.listenTo(app.Todos, 'reset', this.addAll);
-    },
+  // Re-rendering the App just means refreshing the statistics -- the rest of the app doesn't change.
+  render: function() {
+    var completed = app.Todos.completed().length;
+    var remianing = app.Todos.remianing().length;
 
-    // Add a single todo item to the list by creating a view for it, and
-    // appending its element to the `<ul>`.
-    addOne: function( todo ) {
-      var view = new app.TodoView({ model: todo });
-      $('#todo-list').append( view.render().el );
-    },
+    if (app.Todos.length) {
+      this.$main.show();
+      this.$footer.show();
 
-    // Add all items in the **Todos** collection at once.
-    addAll: function() {
-      this.$('#todo-list').html('');
-      app.Todos.each(this.addOne, this);
+      this.$footer.html(this.statsTemplate({
+        completed: completed,
+        remaining: remaining
+      }));
+
+      this.$('#filters li a')
+        .removeClass('selected')
+        .filter('[href="#/' + ( app.TodoFilter || '' ) + '"]')
+        .addClass('selected');
+    } else {
+      this.$main.hide();
+      this.$footer.hide();
     }
+    this.allCheckbox.checked = !remaining;
+  },
 
-  });
+  // Add a single todo item to the list by creating a view for it, and
+  // appending its element to the `<ul>`.
+  addOne: function(){
+    var view = app.TodoView({model: todo});
+    $('#todo-list').append(view.render().el);
+  },
+
+  // Add all items in the **Todos** collection at once.
+  addAll: function(){
+    this.$('#todo-list').html('');
+    app.Todos.each(this.addOne, this);
+  },
+
+
+
+});
+
