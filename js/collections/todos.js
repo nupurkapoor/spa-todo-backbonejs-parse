@@ -16,14 +16,14 @@
   // Todo Collection
   // ---------------
 
-  // The collection of todos is backed by localStorage instead of a remote
-  // server.
+  
   var TodoList = Backbone.Collection.extend({
 
-    // Reference to this collection's model.
+    // Reference to this collection's model, the type of model that this collection will contain
     model: app.Todo,
 
-    // Save all of the todo items under the "todos-backbone" namespace.
+    // The collection of todos is backed by localStorage instead of a remote
+    // server. Also save all of the todo items under the "todos-backbone" namespace.
     localStorage: new Backbone.LocalStorage('todos-backbone'),
 
     // Filter down the list of all todo items that are finished.
