@@ -1,5 +1,13 @@
 // The Application definition, creating namespace
 var app = app | {}
+var ENTER_KEY = 13;
+
+$(function() {
+
+  // Kick things off by creating the **App**.
+  new app.AppView();
+
+});
 
 app.AppView = Backbone.View.extend({
   el: '#todoapp', //instead of creating a new element, bind to the existing element.
