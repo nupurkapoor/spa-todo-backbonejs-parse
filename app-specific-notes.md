@@ -39,9 +39,9 @@ Logic for creating new todos, editing them, and filtering them based on their co
  - filterAll() callback for a filter event, which works a little similar to addOne() and addAll(). Its responsibility is to toggle which todo items are visible based on the filter currently selected in the UI (all, completed or remaining) via calls to filterOne().
  - The special *all* event to bind any event triggered on the Todos collection to the view’s render method (discussed below).
 
-* ***initialize()* method completes by fetching the previously saved todos from localStorage.
+**initialize()** method completes by fetching the previously saved todos from localStorage.
 
-1. render(): Several things are happening in our render() method:
+render(): Several things are happening in our render() method:
  * The #main and #footer sections are displayed or hidden depending on whether there are any todos in the collection.
  * The footer is populated with the HTML produced by instantiating the statsTemplate with the number of completed and remaining todo items.
  * The HTML produced by the preceding step contains a list of filter links. The value of app.TodoFilter, which will be set by our router, is being used to apply the class ‘selected’ to the link corresponding to the currently selected filter. This will result in conditional CSS styling being applied to that filter.
