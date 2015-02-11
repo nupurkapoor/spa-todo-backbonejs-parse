@@ -41,11 +41,11 @@ Logic for creating new todos, editing them, and filtering them based on their co
 
 **initialize()** method completes by fetching the previously saved todos from localStorage.
 
-render(): Several things are happening in our render() method:
- * The #main and #footer sections are displayed or hidden depending on whether there are any todos in the collection.
- * The footer is populated with the HTML produced by instantiating the statsTemplate with the number of completed and remaining todo items.
- * The HTML produced by the preceding step contains a list of filter links. The value of app.TodoFilter, which will be set by our router, is being used to apply the class ‘selected’ to the link corresponding to the currently selected filter. This will result in conditional CSS styling being applied to that filter.
- * The allCheckbox is updated based on whether there are remaining todos.
+* **render()**:
+ - The #main and #footer sections are displayed or hidden depending on whether there are any todos in the collection.
+ - The footer is populated with the HTML produced by instantiating the statsTemplate with the number of completed and remaining todo items.
+ - The HTML produced by the preceding step contains a list of filter links. The value of app.TodoFilter, which will be set by our router, is being used to apply the class ‘selected’ to the link corresponding to the currently selected filter. This will result in conditional CSS styling being applied to that filter.
+ - The allCheckbox is updated based on whether there are remaining todos.
 
 ##### Individual Todo View
 
