@@ -1,6 +1,10 @@
 
 var app = app || {};
 
+console.log("----------------------- TodoView -----------------------");
+
+console.log(app);
+
 // Todo Item View
 // --------------
 
