@@ -1,14 +1,10 @@
 // The Application definition, creating namespace
-var app = app | {}
-var ENTER_KEY = 13;
+var app = app || {};
+console.log("----------------------- AppView -----------------------");
 
-$(function() {
+console.log(app);
 
-  // Kick things off by creating the **App**.
-  new app.AppView();
-
-});
-
+//The overall **AppView** is the top-level piece of UI.
 app.AppView = Backbone.View.extend({
   el: '#todoapp', //instead of creating a new element, bind to the existing element.
 
@@ -44,7 +40,7 @@ app.AppView = Backbone.View.extend({
   // Re-rendering the App just means refreshing the statistics -- the rest of the app doesn't change.
   render: function() {
     var completed = app.Todos.completed().length;
-    var remianing = app.Todos.remianing().length;
+    var remaining = app.Todos.remaining().length;
 
     if (app.Todos.length) {
       this.$main.show();
@@ -68,8 +64,8 @@ app.AppView = Backbone.View.extend({
 
   // Add a single todo item to the list by creating a view for it, and
   // appending its element to the `<ul>`.
-  addOne: function(){
-    var view = app.TodoView({model: todo});
+  addOne: function(todo){
+    var view = new app.TodoView({model: todo});
     $('#todo-list').append(view.render().el);
   },
 
@@ -120,6 +116,6 @@ app.AppView = Backbone.View.extend({
         'completed': completed
       });
     });
-  }
+  }  
 });
 
