@@ -49,6 +49,14 @@ Logic for creating new todos, editing them, and filtering them based on their co
 
 ##### Individual Todo View
 
+##### Routing
+Routing allows to easily filter the list of items that are active as well as those which have been completed. I am defining following roues:
+* **/** (all - default)
+* **/active**
+* **/completed**
+
+When the route changes, the todo list will be filtered on a model level and the selected class on the filter links in the footer will be toggled as described above. When an item is updated while a filter is active it will be updated accordingly (e.g., if the filter is active and the item is checked, it will be hidden). The active filter is persisted on reload.
+
 
 
 
