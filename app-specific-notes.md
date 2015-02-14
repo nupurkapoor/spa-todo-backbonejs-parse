@@ -74,6 +74,20 @@ Our events hash includes three callbacks:
 * `edit()`: changes the current view into editing mode when a user double-clicks on an existing item in the todo list. This allows them to change the existing value of the item’s title attribute.
 * `updateOnEnter()`: checks that the user has hit the return/enter key and executes the close() function.
 * `close()`: trims the value of the current text in our input field, ensuring that we don’t process it further if it does not contain any text (e.g ‘’). If a valid value has been provided, we save the changes to the current todo model and close editing mode by removing the corresponding CSS class.
+* Events that occur when we click the checkbox for a todo item:
+  - `togglecompleted()`: calls `toggle()` on the todo model.
+  - `toggle()`: toggles the completed status of the todo and calls `save()` on the model
+  - The save generates a change event on the model which is bound to our TodoView’s `render()` method. We’ve added a statement in `render()` which toggles the completed class on the element depending on the model’s completed state. The associated CSS changes the color of the title text and strikes a line through it when the todo is completed.
+  - The save also results in a change:completed event on the model which is handled by the AppView’s `filterOne()` method. If we look back at the AppView, we see that `filterOne()` will trigger a visible event on the model. This is used in conjunction with the filtering in our routes and collections so that we only display an item if its completed state falls in line with the current filter. In our update to the TodoView, we bound the model’s visible event to the `toggleVisible()` method. This method uses the new `isHidden()` method to determine if the todo should be visible and updates it accordingly.
+* What happens when we click on a todo’s destroy button:
+  - The `clear()` method is invoked which calls `destroy()` on the todo model.
+  - The todo is deleted from local storage and a destroy event is triggered.
+  - In the update to the TodoView, we bound the model’s destroy event to the view’s inherited `remove()` method. This method deletes the view and automatically removes the associated element from the DOM. Since we used `listenTo()` to bind the view’s listeners to its model, `remove()` also unbinds the listening callbacks from the model ensuring that a memory leak does not occur.
+  - `destroy()` also removes the model from the Todos collection, which triggers a remove event on the collection.
+Since the AppView has its `render()` method bound to all events on the Todos collection, that view is rendered and the stats in the footer are updated.  
+
+We have two views: `AppView` and `TodoView`. The former needs to be instantiated on page load, so its code gets executed. This can be accomplished through jQuery’s ready() utility, which will execute a function when the DOM is loaded. jQuery is a dependency for Backbone.
+
 
 
 ##### Routing
