@@ -1,8 +1,8 @@
 // The Application definition, creating namespace
 var app = app || {};
-console.log("----------------------- AppView -----------------------");
+// console.log("----------------------- AppView -----------------------");
 
-console.log(app);
+// console.log(app);
 
 //The overall **AppView** is the top-level piece of UI.
 app.AppView = Backbone.View.extend({

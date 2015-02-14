@@ -6,7 +6,7 @@ var ESC_KEY = 27;
 
 $(function () {
   // kick things off by creating the `App`
-  console.log("----------------------- App File -----------------------");
-  console.log(app);
-  new app.AppView();
+  // console.log("----------------------- App File -----------------------");
+  // console.log(app);
+  new app.AppView(); //instantiate
 });
