@@ -49,7 +49,7 @@ The `TodoList` collection is used to group our models. The collection uses the *
 Logic for creating new todos, editing them, and filtering them based on their completed status.
 
 * **events**: Defined an events hash containing declarative callbacks for our DOM events. It binds those events to the following methods:
- - `createOnEnter()`: Creates a new Todo model and persists it in localStorage when a user hits enter inside the <input/> field. Also resets the main <input/> field value to prepare it for the next entry. The model is populated by newAttributes(), which returns an object literal composed of the title, order, and completed state of the new item. Note that this is referring to the view and not the DOM element since the callback was bound using the events hash.
+ - `createOnEnter()`: Creates a new Todo model and persists it in localStorage when a user hits enter inside the input field. Also resets the main input field value to prepare it for the next entry. The model is populated by newAttributes(), which returns an object literal composed of the title, order, and completed state of the new item. Note that this is referring to the view and not the DOM element since the callback was bound using the events hash.
  - `clearCompleted()`: Removes the items in the todo list that have been marked as completed when the user clicks the clear-completed checkbox (this checkbox will be in the footer populated by the #stats-template).
  - `toggleAllComplete(`): Allows a user to mark all of the items in the todo list as completed by clicking the toggle-all checkbox.
 
@@ -66,6 +66,15 @@ Logic for creating new todos, editing them, and filtering them based on their co
   - The allCheckbox is updated based on whether there are remaining todos.
 
 ##### Individual Todo View
+
+As the name suggests, this will be in charge of individual Todo records, making sure the view updates when the todo does. To enable this functionality, we will add event listeners to the view that listen for events on an individual todo’s HTML representation.
+
+Our events hash includes three callbacks:
+
+* `edit()`: changes the current view into editing mode when a user double-clicks on an existing item in the todo list. This allows them to change the existing value of the item’s title attribute.
+* `updateOnEnter()`: checks that the user has hit the return/enter key and executes the close() function.
+* `close()`: trims the value of the current text in our input field, ensuring that we don’t process it further if it does not contain any text (e.g ‘’). If a valid value has been provided, we save the changes to the current todo model and close editing mode by removing the corresponding CSS class.
+
 
 ##### Routing
 Routing allows to easily filter the list of items that are active as well as those which have been completed. I am defining following roues:
