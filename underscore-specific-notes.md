@@ -5,7 +5,7 @@
 
 
 #### What is Underscore.js
-A Javascript library for data. It makes it easier to perform operation on data. Works on JSON, Array etc. Essentially any collection of data that you have in your JavaScript application you can use Underscore to manipulate it. The great thing is that it can be used with other libraries like jQuery. Use Underscore to manipulate data and jQuery to lay out the result on the web page. 
+A functional programming Javascript library for data. It makes it easier to perform operation on data. Works on JSON, Array etc. Essentially any collection of data that you have in your JavaScript application you can use Underscore to manipulate it. The great thing is that it can be used with other libraries like jQuery. Use Underscore to manipulate data and jQuery to lay out the result on the web page. 
 
 From Underscore.js's website:
 
@@ -22,11 +22,17 @@ From Underscore.js's website:
 
 #### How Underscore.js works
 
+In general a library is a collection of code relating to a specific task, or set of closely related tasks which operate at roughly the same level of abstraction. It generally lacks any purpose or intent of it's own, and is intended to be used by (consumed) and integrated with client code to assist client code in executing it's tasks. It is simply a collection of methods/functions wrapped up into a package that can be imported into a code project and re-used.
+
+Functional programming in JavaScript is made a lot easier with a suite of functions packaged together to form `Underscore.js` library.
+
 #### When to use Underscore.js
 
-Underscore is an absolute boon if dealing with non-DOM code or even complex, MVC kind front end code. 
+Underscore is an absolute boon if dealing with non-DOM code or even complex, MVC kind front end code. But really anytime you need to deal with data, iterate through them or right a `for` loop, a very simple but important reason, it helps right Functional Programming standard functions. Our code will become shorter, more self-descriptive, and more durable.
 
 #### How to use Underscore.js
+
+
 
 ###### Installing Underscore.js
 Gettings tarted with Underscore.js library is really straight forward, just grab the [cddnjs link](https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js), include it in your page and you're good to go.
