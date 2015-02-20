@@ -53,6 +53,8 @@ Use Underscore's `template()` method as our client-side HTML partial rendering e
  - RegExp **interpolate** : `<%=code%>` in template string
  - RegExp **escape** : `<%-code%>`
  - String **variable** : optional, the name of the data parameter in the template string
+ 
+***Note:*** *Use of `<%= variable =>` would result in cross-site scripting vulnerability. So its more safe to use `<%- variable ->` instead.*
 
 Eg: `_.template('<p><%= text %></p>', {text: 'o hai!'});`
 Translates to: `<p>o hai!</p>`
