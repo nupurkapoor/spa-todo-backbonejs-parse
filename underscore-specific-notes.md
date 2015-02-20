@@ -1,4 +1,4 @@
-### Understanding Underscore.js
+### Understanding Underscore.js (_.js)
 
 *"Underscore is a utility-belt library for JavaScript that provides a lot of the functional programming support that you would expect in Prototype.js (or Ruby), but without extending any of the built-in JavaScript objects."*
 
@@ -35,7 +35,7 @@ Gettings tarted with Underscore.js library is really straight forward, just grab
 
 #### Underscore.js templating
 
-Use Underscore's template() method as our client-side HTML partial rendering engine. Based loosely on John Resig’s micro-templating, Underscore templates should have a fairly familiar feel. Put in some text with delimeters for your data, and `_.template` does the substitution for you, easy peasy.
+Use Underscore's `template()` method as our client-side HTML partial rendering engine. Based loosely on John Resig’s micro-templating, Underscore templates should have a fairly familiar feel. Put in some text with delimeters for your data, and `_.template` does the substitution for you, easy peasy.
 
 `_.template('<p><%= text %></p>', {text: 'o hai!'});`
 Translates to: `<p>o hai!</p>`
