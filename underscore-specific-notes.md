@@ -37,16 +37,26 @@ Gettings tarted with Underscore.js library is really straight forward, just grab
 
 Use Underscore's `template()` method as our client-side HTML partial rendering engine. Based loosely on John Resig’s micro-templating, Underscore templates should have a fairly familiar feel. Put in some text with delimeters for your data, and `_.template` does the substitution for you, easy peasy.
 
-###### Basics
+#### Basics
+
+###### The `_.template` function has 3 arguments:
+
+* String text : the template string
+* Object data : the evaluation data
+* Object settings : local settings, the _.templateSettings is the global settings  object.
+* If no data (or null) given, than a render function will be returned. It has 1 argument:
+  - Object data : same as the data above
+
+
+###### There are 3 regex patterns and 1 static parameter in the settings:
+ - RegExp evaluate : `<%code%>` in template string
+ - RegExp interpolate : `<%=code%>` in template string
+ - RegExp escape : `<%-code%>`
+ - String variable : optional, the name of the data parameter in the template string
 
 `_.template('<p><%= text %></p>', {text: 'o hai!'});`
 Translates to: `<p>o hai!</p>`
 
-The `_.template` function has 3 arguments:
-
-* String text : the template string
-* Object data : the evaluation data
-* Object settings : local settings, the _.templateSettings is the global settings  object
 
 
 
