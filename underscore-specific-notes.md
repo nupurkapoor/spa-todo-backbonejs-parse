@@ -49,13 +49,21 @@ Use Underscore's `template()` method as our client-side HTML partial rendering e
 
 
 ###### There are 3 regex patterns and 1 static parameter in the settings:
- - RegExp evaluate : `<%code%>` in template string
- - RegExp interpolate : `<%=code%>` in template string
- - RegExp escape : `<%-code%>`
- - String variable : optional, the name of the data parameter in the template string
+ - RegExp **evaluate** : `<%code%>` in template string
+ - RegExp **interpolate** : `<%=code%>` in template string
+ - RegExp **escape** : `<%-code%>`
+ - String **variable** : optional, the name of the data parameter in the template string
 
-`_.template('<p><%= text %></p>', {text: 'o hai!'});`
+Eg: `_.template('<p><%= text %></p>', {text: 'o hai!'});`
 Translates to: `<p>o hai!</p>`
+
+The code in an **evaluate** section will be simply evaluated. You can add string from this section with the `__p+="mystring"` command to the evaluated template, but this is not recommended (not part of the templating interface), use the interpolate section instead of that. This type of section is for adding blocks like if or for to the template.
+
+The result of the code in the **interpolate** section will added to the evaluated template. If null given back, then empty string will added.
+
+The **evaluate** section escapes html with `_.escape` on the return value of the given code. So its similar than an `_.escape(code)` in an interpolate section, but it escapes with `\` the whitespace characters like `\n` before it passes the code to the _.escape. I don't know why is that important, it's in the code, but it works well with the **interpolate** and `_.escape` - which doesn't escape the white-space characters - too.
+
+By default the `data` parameter is passed by a `with(data){...}` statement, but this kind of evaluating is much slower than the evaluating with named variable. 
 
 
 
