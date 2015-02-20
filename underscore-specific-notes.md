@@ -37,8 +37,16 @@ Gettings tarted with Underscore.js library is really straight forward, just grab
 
 Use Underscore's `template()` method as our client-side HTML partial rendering engine. Based loosely on John Resig’s micro-templating, Underscore templates should have a fairly familiar feel. Put in some text with delimeters for your data, and `_.template` does the substitution for you, easy peasy.
 
+###### Basics
+
 `_.template('<p><%= text %></p>', {text: 'o hai!'});`
 Translates to: `<p>o hai!</p>`
+
+The `_.template` function has 3 arguments:
+
+* String text : the template string
+* Object data : the evaluation data
+* Object settings : local settings, the _.templateSettings is the global settings  object
 
 
 
