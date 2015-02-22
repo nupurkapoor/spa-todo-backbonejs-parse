@@ -35,7 +35,9 @@ Gettings tarted with Underscore.js library is really straight forward, just grab
 
 #### Underscore.js templating
 
-Use Underscore's `template()` method as our client-side HTML partial rendering engine. Based loosely on John Resig’s micro-templating, Underscore templates should have a fairly familiar feel. Put in some text with delimeters for your data, and `_.template` does the substitution for you, easy peasy.
+Use Underscore's `template()` method as the client-side HTML partial rendering engine. Based loosely on John Resig’s micro-templating, Underscore templates should have a fairly familiar feel. Put in some text with delimeters for your data, and `_.template` does the substitution for you, easy peasy.
+
+By default, Underscore uses ERB-style template delimiters. Underscore templating handles arbitrary delimiters, preserves whitespace, and correctly escapes quotes within interpolated code.
 
 #### Basics
 
