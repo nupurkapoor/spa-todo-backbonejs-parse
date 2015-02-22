@@ -13,6 +13,8 @@
 
 var app = app || {};
 
+console.log('Initializing collection');
+
 app.TodoList = Backbone.Collection.extend({
 
   // Reference to this collection's model, the type of model that this collection will contain

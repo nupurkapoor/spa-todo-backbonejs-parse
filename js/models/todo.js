@@ -6,6 +6,8 @@
 
 var app = app || {}; //creating namespace
 
+console.log('Initializing model');
+
 app.Todo = Backbone.Model.extend({
 
   // Default attributes ensure that each todo created has `title`, `order`, and `completed` keys.
