@@ -51,9 +51,13 @@ By default, Underscore uses ERB-style template delimiters. Underscore templating
 
 
 ###### There are 3 regex patterns and 1 static parameter in the settings:
- - RegExp **evaluate** : `<%code%>` in template string
- - RegExp **interpolate** : `<%=code%>` in template string
- - RegExp **escape** : `<%-code%>`
+ - RegExp **evaluate** : `<%code%>` in template string. Evaluate the given code. This allows to do loops and conditions
+ 
+ - RegExp **interpolate** : `<%=code%>` in template string. Insert the result of an expression. The properties of the data object a(re all available as variables. No escaping happens, values are inserted verbati (in exactly the same words as were used originally).
+ 
+ - RegExp **escape** : `<%-code%>` Insert the result of an expression, but escape the following characters via `_.escape()`:
+    `& < > " ' /`
+    
  - String **variable** : optional, the name of the data parameter in the template string
  
 ***Note:*** *Use of `<%= variable =>` would result in cross-site scripting vulnerability. So its more safe to use `<%- variable ->` instead.*
@@ -68,6 +72,21 @@ The result of the code in the **interpolate** section will added to the evaluate
 The **evaluate** section escapes html with `_.escape` on the return value of the given code. So its similar than an `_.escape(code)` in an interpolate section, but it escapes with `\` the whitespace characters like `\n` before it passes the code to the _.escape. I don't know why is that important, it's in the code, but it works well with the **interpolate** and `_.escape` - which doesn't escape the white-space characters - too.
 
 By default the `data` parameter is passed by a `with(data){...}` statement, but this kind of evaluating is much slower than the evaluating with named variable. 
+
+The template function has the following signature:
+`_.template(templateString, data?, settings?)`
+
+* templateString holds the template
+* settings allow you to override the global settings
+* If you omit data, you compile a template that has to be applied to data as a function:
+`var t1 = _.template("Hello <%=user%>!");`  // compile
+`t1({ user: "<Jane>" })`  // insert data
+`'Hello <Jane>!'` // output
+
+First, you compile a template function t1, then you use that function to produce a string. You can also specify the parameter data and directly insert it into the template, without an extra compilation step:
+`_.template("Hello <%=user%>!", { user: "<Jane>" })`
+`'Hello <Jane>!'`
+
 
 
 
