@@ -1,18 +1,16 @@
+// The Application definition, creating namespace
 var app = app || {};
+// console.log("----------------------- AppView -----------------------");
 
-console.log("----------------------- AppView -----------------------");
-
-console.log(app);
+// console.log(app);
 
 //The overall **AppView** is the top-level piece of UI.
 app.AppView = Backbone.View.extend({
-
   el: '#todoapp', //instead of creating a new element, bind to the existing element.
 
-  statsTemplate: _.template(
-    $('#stats-template').html()
-  ),
-
+  
+  statsTemplate: _.template($('#stats-template').html()),
+  
   // Delegate events for creating new items, clearing completed ones, and toggle list.
   events: {
     'keypress #new-todo' : 'createOnEnter',
@@ -85,8 +83,16 @@ app.AppView = Backbone.View.extend({
     app.Todos.each(this.filterOne, this);
   },
 
+  // Generate the attributes for a new Todo item.
+  newAttributes: function() {
+    return {
+      title: this.$input.val().trim(),
+      order: app.Todos.nextOrder(),
+      completed: false
+    };
+  },
+
   // If you hit return in the main input field, create new Todo model, persisting it to localStorage.
-  // jQuery lets event.which to wath for keyboard key input
   createOnEnter: function( event ) {
     if ( event.which !== ENTER_KEY || !this.$input.val().trim() ) {
       return;
@@ -110,6 +116,6 @@ app.AppView = Backbone.View.extend({
         'completed': completed
       });
     });
-  } 
-
+  }  
 });
+

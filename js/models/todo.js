@@ -8,21 +8,20 @@ var app = app || {}; //creating namespace
 
 console.log('Initializing model');
 
-app.Todo = Backbone.Model.extend({
+  app.Todo = Backbone.Model.extend({
 
-  // Default attributes ensure that each todo created has `title`, `order`, and `completed` keys.
-  default: {
-    title: 'title..',
-    completed: false
-  },
+    // Default attributes ensure that each todo created has `title` and `completed` keys.
+    defaults: {
+      title: '',
+      completed: false
+    },
 
-  // Toggle the `completed` state of this todo item.
-  // Through this method a Todo item’s completion status can be set and simultaneously persisted.
+    // Toggle the `completed` state of this todo item.
+    // Through this method a Todo item’s completion status can be set and simultaneously persisted.
+    toggle: function() {
+      this.save({
+        completed: !this.get('completed')
+      });
+    }
 
-  toggle: function () {
-    this.save({
-      completed: !this.get('completed')
-    });
-  }
-
-});
+  });
