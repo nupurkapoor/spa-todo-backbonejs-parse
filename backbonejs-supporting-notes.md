@@ -103,6 +103,79 @@ function test() {
 * Enables network access in Backbone.js
 * Override this function to change the manner in which Backbone persists models to the server. The sync function may be overridden globally as Backbone.sync, or at a finer-grained level, by adding a sync function to a Backbone collection or to an individual model.
 
+##### ** Expanding on how Backbone.js does not copy objects
+So, yes. That literally means that if you .get() an object from a model, any modifications to that object will directly manipulate the object. Example:
+
+Let’s define a Student model:
+
+`var Student = Backbone.Model.extend({
+  defaults: {
+    'name': 'Student One',
+    'address': {
+        'street': '1st Street'
+        'city': 'Arlington',
+        'state': 'VA'
+        'zipCode': 22201
+    },
+    'id': 'GWCS12FALL'
+  }
+});`
+
+And let’s say you create a new student object:
+
+`var student = new Student({
+  'name': 'Student Two'
+});`
+
+Now, let’s manipulate some of the attributes of the new student object:
+
+`student.set('name', 'Student Three.', { validate: true });`
+
+The code above successfully manipulates the name attribute of the student object. 
+
+Consider another scenerio, lets add some validation for zipcode:
+
+`var Student = Backbone.Model.extend({
+
+  validate: function(attributes) {
+    if(isNaN(attributes.address.zipCode)) return "Address ZIP code is invalid!";
+  },
+
+  defaults: {
+    'name': 'Student One',
+    'address': {
+        'street': '1st Street'
+        'city': 'Arlington',
+        'state': 'VA'
+        'zipCode': 22201
+    },
+    'id': 'GWCS12FALL'
+  }
+});`
+
+Now, let’s attempt to manipulate the address with an incorrect ZIP code:
+
+`var address = student.get('address');
+address.zipCode = 'Hello World';`
+
+`\*Gives an error since the ZIP code is invalid*\`
+
+`student.set('address', address, { validate: true });
+console.log(student.get('address'));`
+
+`/* Prints an object with these properties.
+{
+  'street': '1st Street'
+  'city': 'Arlington',
+  'state': 'VA'
+  'zipCode': 22201
+}
+*/`
+
+Wait WHAT!!!!! How can this be? Even though validation has raised an error, why are the attributes still changed? 
+Well, as Backbone.js does not copy model attributes; it simply returns whatever you’re asking for. So, as you might guess, if you ask for an object, you will get a reference to that object, and any manipulation to that object will directly manipulate the actual object in the model.(womp womp)
+
+
 
 
 
