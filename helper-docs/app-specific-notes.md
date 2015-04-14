@@ -88,8 +88,6 @@ Since the AppView has its `render()` method bound to all events on the Todos col
 
 We have two views: `AppView` and `TodoView`. The former needs to be instantiated on page load, so its code gets executed. This can be accomplished through jQuery’s ready() utility, which will execute a function when the DOM is loaded. jQuery is a dependency for Backbone.
 
-
-
 ##### Routing
 Routing allows to easily filter the list of items that are active as well as those which have been completed. I am defining following roues:
 * **/** (all - default)
