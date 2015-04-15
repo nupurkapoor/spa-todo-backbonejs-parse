@@ -172,8 +172,8 @@ console.log(student.get('address'));`
 }
 */`
 
-Wait WHAT!!!!! How can this be? Even though validation has raised an error, why are the attributes still changed? 
-Well, as Backbone.js does not copy model attributes; it simply returns whatever you’re asking for. So, as you might guess, if you ask for an object, you will get a reference to that object, and any manipulation to that object will directly manipulate the actual object in the model.(womp womp)
+Wait WHAT!!!!! How can this be? Even though validation has raised an error, why did the attributes still change? 
+Well, as Backbone.js does not copy model attributes; it simply returns whatever you’re asking for. So, as you might guess, if you ask for an object, you will get a reference to that object, and any manipulation to that object will directly manipulate the actual object in the model.. womp womp.. 
 
 
 
