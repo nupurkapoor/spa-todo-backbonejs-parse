@@ -12,10 +12,10 @@ Parse offers a backend to store data, push notifications, social media integrati
 
 You can add the Parse JavaScript file on your page, get an API key, and start saving "objects" in the cloud with only a few lines of code. Parse frees you from setting up a server-side stack. Provides with a robust SDK and APIs.
 
-#### When to use Parse
-
-
 #### How to use Parse
+Through its JS API
+
+#### When to use Parse
 
 ###### Installing Parse
 
